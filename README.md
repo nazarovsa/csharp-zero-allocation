@@ -8,6 +8,9 @@ Reasons why we have problems with memory:
 
 ## Our instruments for optimization
 
+Our main principle is "Allocate as little memory as possible". It may seem strange, but in some cases we can avoid allocating memory at all.  
+Next instruments will help us with it.
+
 ### Span, ReadOnlySpan, stackalloc
 
 #### Span

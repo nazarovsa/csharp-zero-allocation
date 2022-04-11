@@ -11,12 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generation", "Generation", "{262CD19A-8560-48FB-8407-2B112EC5B334}"
+	ProjectSection(SolutionItems) = preProject
+		Generation\README.md = Generation\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Core", "Guider\Guider.Core\Guider.Core.csproj", "{D9D3DA8B-8A0B-43C1-8700-5F9CE68A8B3F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Console", "Guider\Guider.Console\Guider.Console.csproj", "{1803B375-1B13-48BA-B838-261E052B5028}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Benchmark", "Guider\Guider.Benchmark\Guider.Benchmark.csproj", "{5A5C2161-47AB-4762-9CB6-506150B1D055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Core", "Generation\Generation.Core\Generation.Core.csproj", "{64C802A9-4054-46C7-A5F5-7C3EE5E94557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Console", "Generation\Generation.Console\Generation.Console.csproj", "{8301704D-C49F-4F50-B749-C8FB9A2FF442}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Benchmark", "Generation\Generation.Benchmark\Generation.Benchmark.csproj", "{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +36,9 @@ Global
 		{D9D3DA8B-8A0B-43C1-8700-5F9CE68A8B3F} = {EBF37B58-0CEC-4338-BA5D-BB1528A30B98}
 		{1803B375-1B13-48BA-B838-261E052B5028} = {EBF37B58-0CEC-4338-BA5D-BB1528A30B98}
 		{5A5C2161-47AB-4762-9CB6-506150B1D055} = {EBF37B58-0CEC-4338-BA5D-BB1528A30B98}
+		{64C802A9-4054-46C7-A5F5-7C3EE5E94557} = {262CD19A-8560-48FB-8407-2B112EC5B334}
+		{8301704D-C49F-4F50-B749-C8FB9A2FF442} = {262CD19A-8560-48FB-8407-2B112EC5B334}
+		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1} = {262CD19A-8560-48FB-8407-2B112EC5B334}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9D3DA8B-8A0B-43C1-8700-5F9CE68A8B3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -41,5 +53,17 @@ Global
 		{5A5C2161-47AB-4762-9CB6-506150B1D055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A5C2161-47AB-4762-9CB6-506150B1D055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A5C2161-47AB-4762-9CB6-506150B1D055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C802A9-4054-46C7-A5F5-7C3EE5E94557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C802A9-4054-46C7-A5F5-7C3EE5E94557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C802A9-4054-46C7-A5F5-7C3EE5E94557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C802A9-4054-46C7-A5F5-7C3EE5E94557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8301704D-C49F-4F50-B749-C8FB9A2FF442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8301704D-C49F-4F50-B749-C8FB9A2FF442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8301704D-C49F-4F50-B749-C8FB9A2FF442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8301704D-C49F-4F50-B749-C8FB9A2FF442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

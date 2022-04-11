@@ -1,6 +1,6 @@
 ﻿namespace Guider.Core;
 
-public static class GuidTransformer
+public static partial class GuidTransformer
 {
     public static string ToStringFromGuid(Guid id)
     {

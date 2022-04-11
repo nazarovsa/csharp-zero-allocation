@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Guider.Core;
 
-public static class EfficientGuidTransformer
+public static partial class GuidTransformer
 {
     private const char Plus = '+';
     private const char Slash = '/';
@@ -14,7 +14,7 @@ public static class EfficientGuidTransformer
     private const byte PlusByte = (byte)'+';
     private const byte SlashByte = (byte)'/';
 
-    public static string ToStringFromGuid(Guid id)
+    public static string ToStringFromGuidEfficient(Guid id)
     {
         Span<byte> idBytes = stackalloc byte[16];
         Span<byte> base64Bytes = stackalloc byte[24];
@@ -37,7 +37,7 @@ public static class EfficientGuidTransformer
         return new string(finalChars);
     }
 
-    public static Guid ToGuidFromString(ReadOnlySpan<char> id)
+    public static Guid ToGuidFromStringEfficient(ReadOnlySpan<char> id)
     {
         Span<char> base64Chars = stackalloc char[24];
 

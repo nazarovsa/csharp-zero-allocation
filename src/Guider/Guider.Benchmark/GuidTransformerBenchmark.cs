@@ -18,7 +18,7 @@ public class GuidTransformerBenchmark
     [Benchmark]
     public Guid ToGuidFromStringEfficient()
     {
-        return EfficientGuidTransformer.ToGuidFromString(StringForTests);
+        return GuidTransformer.ToGuidFromStringEfficient(StringForTests);
     }
     
     [Benchmark]
@@ -30,6 +30,6 @@ public class GuidTransformerBenchmark
     [Benchmark]
     public string ToStringFromGuidEfficient()
     {
-        return EfficientGuidTransformer.ToStringFromGuid(GuidForTests);
+        return GuidTransformer.ToStringFromGuidEfficient(GuidForTests);
     }
 }

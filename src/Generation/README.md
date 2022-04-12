@@ -1,7 +1,7 @@
 # Lottery ticket generation
 
 Consider a lottery where you should guess order of ten numbers.  
-We will generate predefined tickets for that lottery and write them into file.
+We will generate ticket's combinations for that lottery.
 
 ## Projects
 

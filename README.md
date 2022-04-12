@@ -17,7 +17,7 @@ Next instruments will help us with it.
 
 Provides a type- and memory-safe representation of a contiguous region of arbitrary memory.
 
-_`Span<T>` is a ref struct that is allocated on the stack rather than on the managed heap._ Ref struct types have a number of _restrictions_ to ensure that they cannot be promoted to the managed heap:  
+**`Span<T>` is a ref struct that is allocated on the stack rather than on the managed heap.** Ref struct types have a number of **restrictions** to ensure that they cannot be promoted to the managed heap:  
 - They can't be boxed
 - They can't be assigned to variables of type `Object`, dynamic or to any interface type
 - They can't be fields in a reference type
@@ -81,9 +81,9 @@ class Program
 
 #### `ReadOnlySpan<T>`
 
-Provides a type-safe and memory-safe _read-only_ representation of a contiguous region of arbitrary memory.
+Provides a type-safe and memory-safe **read-only** representation of a contiguous region of arbitrary memory.
 
-_`ReadOnlySpan<T>` is a ref struct that is allocated on the stack and can never escape to the managed heap._ `ReadOnlySpan<T>` has the same restrictions as `Span<T>`.
+**`ReadOnlySpan<T>` is a ref struct that is allocated on the stack and can never escape to the managed heap.** `ReadOnlySpan<T>` has the same restrictions as `Span<T>`.
 A `ReadOnlySpan<T>` instance is often used to reference the elements of an array or a portion of an array. Unlike an array, however, a `ReadOnlySpan<T>` instance can point to managed memory, native memory, or memory managed on the stack.
 
 #### stackalloc
@@ -93,7 +93,7 @@ You can assign the result of a stackalloc expression to a variable of one of the
 - Beginning with C# 7.2, System.Span<T> or System.ReadOnlySpan<T>
 - A pointer type, as the following example shows
 
-_The amount of memory available on the stack is limited._ If you allocate too much memory on the stack, a `StackOverflowException` is thrown. To avoid that, follow the rules below:
+**The amount of memory available on the stack is limited.** If you allocate too much memory on the stack, a `StackOverflowException` is thrown. To avoid that, follow the rules below:
 - Limit the amount of memory you allocate with stackalloc. For example, if the intended buffer size is below a certain limit, you allocate the memory on the stack; otherwise, use an array of the required length, as the following code shows:
 ```csharp
 const int MaxStackLimit = 1024;

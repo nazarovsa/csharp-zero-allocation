@@ -1,4 +1,5 @@
 ﻿using Generation.Core;
 
-var ticket = TicketGenerator.Generate();
-Console.WriteLine("Your ticket is: " + ticket);
+var generator = new CombinationGenerator();
+generator.MoveNext();
+Console.WriteLine("Your ticket is: " + string.Join(", ", generator.Result));

@@ -8,11 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="6.0.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ZeroAllocation.Core\ZeroAllocation.Core.csproj" />
+        <ProjectReference Include="..\ZeroAllocation.Core\ZeroAllocation.Core.csproj" />
     </ItemGroup>
 
 </Project>

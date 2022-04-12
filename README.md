@@ -132,9 +132,27 @@ Because the `IMemoryOwner<T>` object implements the `IDisposable` interface, you
 
 ### Object & Array pooling
 
+The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use – a "pool" – rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it; this can be done manually or automatically.
+
+Object pools are primarily used for performance: in some circumstances, object pools significantly improve performance. Object pools complicate object lifetime, as objects obtained from and returned to a pool are not actually created or destroyed at this time, and thus require care in implementation.
+
 #### How pools helps us save memory.
 
-#### How to clean up pools.
+Obviously, if we are reusing objects, it allow us to save memory and prevent GC collections. We don't need to create and destroy extra objects anymore, because we taking them from the pool.
+
+#### How to manage size of the pool
+
+In some cases, when performing operations with high-load, the number of objects in our pool can be very large. And when the load decreases, we don't need so many objects in the pool. 
+
+There are popular ways to manage size of the pool:
+- Clear pool manually at some point in your code. You should be careful, because it require manual actions.
+- Use "smart" creation of objects. For example, when your pool is full, you can create new object via `new` operator. Of course, it will lead to extra memory usage and trigger GC more often. But you will forget about the manual steps. You can choose maximum pool size for a particular case to minimize extra load on GC and memory allocation.
+
+For example, your `Get` method can be implemented as follows:
+
+```csharp
+
+```
 
 ## Practice
 

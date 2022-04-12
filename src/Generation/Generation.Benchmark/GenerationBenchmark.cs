@@ -6,39 +6,35 @@ namespace Generation.Benchmark;
 [MemoryDiagnoser]
 public class GenerationBenchmark
 {
+    private static readonly CombinationGenerator Generator = new CombinationGenerator();
+    
     [Benchmark]
-    public TicketClass GenerateTicket()
+    public void GenerateCombination()
     {
-        return TicketGenerator.Generate();
+        Generator.MoveNext();
     }
 
     [Benchmark]
-    public TicketStruct GenerateTicketEfficient()
+    public void GenerateCombinationEfficient()
     {
-        return TicketGenerator.GenerateEfficient();
+        Generator.MoveNextEfficient();
     }
 
     [Benchmark]
-    public List<TicketClass> GenerateTickets_10000()
+    public void GenerateCombinations_10000()
     {
-        var list = new List<TicketClass>();
         for (var i = 0; i < 10000; i++)
         {
-            list.Add(TicketGenerator.Generate());
+            Generator.MoveNext();
         }
-
-        return list;
     }
 
     [Benchmark]
-    public List<TicketStruct> GenerateTicketEfficient_10000()
+    public void GenerateCombinationsEfficient_10000()
     {
-        var list = new List<TicketStruct>();
         for (var i = 0; i < 10000; i++)
         {
-            list.Add(TicketGenerator.GenerateEfficient());
+            Generator.MoveNextEfficient();
         }
-
-        return list;
     }
 }

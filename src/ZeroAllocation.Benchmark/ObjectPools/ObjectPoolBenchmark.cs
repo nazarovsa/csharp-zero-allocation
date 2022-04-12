@@ -1,5 +1,5 @@
 using BenchmarkDotNet.Attributes;
-using ZeroAllocation.Core.Pools;
+using Microsoft.Extensions.ObjectPool;
 
 namespace ZeroAllocation.Benchmark.ObjectPools;
 
@@ -23,9 +23,9 @@ public class ObjectPoolBenchmark
     }
 
     [Benchmark]
-    public void ProcessExampleObjectPool()
+    public void ProcessExampleMicrosoftObjectPool()
     {
-        var pool = new ObjectPool<ExampleObject>(16);
+        var pool = new DefaultObjectPool<ExampleObject>(new ExampleObjectPooledPolicy(),4);
 
         // Create a high demand for ExampleObject instance.
         Parallel.For(0, _count, (i, loopState) =>

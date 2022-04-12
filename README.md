@@ -51,7 +51,8 @@ Console.WriteLine();
 
 ##### `Span<T>` and slices
 
-`Span<T>` includes two overloads of the Slice method that form a slice out of the current span that starts at a specified index. This makes it possible to treat the data in a Span<T> as a set of logical chunks that can be processed as needed by portions of a data processing pipeline with minimal performance impact. For example, since modern server protocols are often text-based, manipulation of strings and substrings is particularly important. In the String class, the major method for extracting substrings is Substring. For data pipelines that rely on extensive string manipulation, its use offers some performance penalties, since it:
+`Span<T>` includes two overloads of the `Slice` method that form a slice out of the current span that starts at a specified index. This makes it possible to treat the data in a `Span<T>` as a set of logical chunks that can be processed as needed by portions of a data processing pipeline with minimal performance impact.  
+For example, since modern server protocols are often text-based, manipulation of strings and substrings is particularly important. In the String class, the major method for extracting substrings is Substring. For data pipelines that rely on extensive string manipulation, its use offers some performance penalties, since it:
 - Creates a new string to hold the substring.
 - Copies a subset of the characters from the original string to the new string.
 This allocation and copy operation can be eliminated by using either `Span<T>` or `ReadOnlySpan<T>`, as the following example shows:
@@ -60,20 +61,20 @@ This allocation and copy operation can be eliminated by using either `Span<T>` o
 using System;
 
 class Program
-<
+{
     static void Main()
-    <
+    {
         string contentLength = "Content-Length: 132";
         var length = GetContentLength(contentLength.ToCharArray());
         Console.WriteLine($"Content length: <length>");
-    >
+    }
 
     private static int GetContentLength(ReadOnlySpan<char> span)
-    <
+    {
         var slice = span.Slice(16);
         return int.Parse(slice);
-    >
->
+    }
+}
 // Output:
 //      Content length: 132 
 ```

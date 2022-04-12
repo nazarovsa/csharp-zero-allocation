@@ -1,4 +1,4 @@
-# Lottery ticket generation
+# Lottery ticket's combinations generation
 
 Consider a lottery where you should guess order of ten numbers.  
 We will generate ticket's combinations for that lottery.

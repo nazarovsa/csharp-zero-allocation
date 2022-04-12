@@ -103,7 +103,7 @@ Span<byte> buffer = inputLength <= MaxStackLimit ? stackalloc byte[MaxStackLimit
 
 **The content of the newly allocated memory is undefined.** You should initialize it before the use. For example, you can use the `Span<T>`. Clear method that sets all the items to the default value of type T.
 
-### `Memory<T>`, `ReadOnlyMemory<T>`
+### `Memory<T>`, `ReadOnlyMemory<T>`, `IMemoryOwner<T>`
 
 #### `Memory<T>`
 Represents a contiguous region of memory.
@@ -116,7 +116,7 @@ In addition to `Memory<T>`, you can use `System.ReadOnlyMemory<T>` to represent 
 
 #### `ReadOnlyMemory<T>`
 
-Represents a contiguous region of memory, similar to ReadOnlySpan<T>. **Unlike ReadOnlySpan<T>, it is not a byref-like type**.
+Represents a contiguous region of memory, similar to ReadOnlySpan<T>. **Unlike `ReadOnlySpan<T>`, it is not a byref-like type**.
 
 #### `IMemoryOwner<T>`
 Identifies the owner of a block of memory who is responsible for disposing of the underlying memory appropriately.

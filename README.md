@@ -106,10 +106,29 @@ Span<byte> buffer = inputLength <= MaxStackLimit ? stackalloc byte[MaxStackLimit
 ### `Memory<T>`, `ReadOnlyMemory<T>`
 
 #### `Memory<T>`
+Represents a contiguous region of memory.
+
+Like `Span<T>`, `Memory<T>` represents a contiguous region of memory. **Unlike `Span<T>`, however, `Memory<T>` is not a ref struct**. This means that **`Memory<T>` can be placed on the managed heap**, whereas `Span<T>` cannot. As a result, the **`Memory<T>` structure does not have the same restrictions as a `Span<T>`** instance. In particular:
+- It can be used as a field in a class.
+- It can be used across await and yield boundaries.
+
+In addition to `Memory<T>`, you can use `System.ReadOnlyMemory<T>` to represent immutable or read-only memory.
 
 #### `ReadOnlyMemory<T>`
 
+Represents a contiguous region of memory, similar to ReadOnlySpan<T>. **Unlike ReadOnlySpan<T>, it is not a byref-like type**.
+
 #### `IMemoryOwner<T>`
+Identifies the owner of a block of memory who is responsible for disposing of the underlying memory appropriately.
+
+`IMemoryOwner<T>` can be used to manage rented memory in a right manner. These cases are occuring when you need to pass a memory block through your calls.
+
+The `IMemoryOwner<T>` interface is used to define the owner responsible for the lifetime management of a `Memory<T>` buffer. An instance of the `IMemoryOwner<T>` interface is returned by the `MemoryPool<T>.Rent` method.
+While a buffer can have multiple consumers, it can only have a single owner at any given time. The owner can:
+Create the buffer either directly or by calling a factory method.
+Transfer ownership to another consumer. In this case, the previous owner should no longer use the buffer.
+Destroy the buffer when it is no longer in use.
+Because the `IMemoryOwner<T>` object implements the `IDisposable` interface, you should call its `Dispose` method only after the memory buffer is no longer needed and you have destroyed it. You should not dispose of the `IMemoryOwner<T>` object while a reference to its memory is available. This means that the type in which `IMemoryOwner<T>` is declared should not have a `Finalize` method.
 
 ### Object & Array pooling
 
@@ -128,6 +147,8 @@ Span<byte> buffer = inputLength <= MaxStackLimit ? stackalloc byte[MaxStackLimit
 - [`Span<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.span-1?view=net-6.0)
 - [`ReadOnlySpan<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.readonlyspan-1?view=net-6.0)
 - [`stackalloc`: docs](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc)
+- [`Memory<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.memory-1?view=net-6.0)
+- [`IMemoryOwner<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=net-6.0)
 - [.NET Platform Architecture. Stanislav Sidristij - Memory<T> and Span<T>](https://github.com/sidristij/dotnetbook/blob/master/book/en/MemorySpan.md)
 - [What is Span in C# and why you should be using it](https://www.youtube.com/watch?v=FM5dpxJMULY)
 - [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - Guider sample taken from this video.

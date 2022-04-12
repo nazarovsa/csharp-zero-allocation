@@ -1,7 +1,7 @@
 using System.Buffers.Text;
 using System.Runtime.InteropServices;
 
-namespace Guider.Core;
+namespace GuidTransformer.Core;
 
 public static partial class GuidTransformer
 {

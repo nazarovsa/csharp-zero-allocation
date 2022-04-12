@@ -1,4 +1,4 @@
-﻿namespace Guider.Core;
+﻿namespace GuidTransformer.Core;
 
 public static partial class GuidTransformer
 {

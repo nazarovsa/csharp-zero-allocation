@@ -1,4 +1,4 @@
 ﻿using BenchmarkDotNet.Running;
-using Guider.Benchmark;
+using GuidTransformer.Benchmark;
 
 BenchmarkRunner.Run<GuidTransformerBenchmark>();

@@ -1,4 +1,4 @@
-# Guider
+# GuidTransformer
 Sample of optimizing simple guid to efficient string transformer.
 
 Efficient string is a string that represents a guid in user friendly format. For example,

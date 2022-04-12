@@ -8,11 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Guider.Core\Guider.Core.csproj" />
+      <ProjectReference Include="..\GuidTransformer.Core\GuidTransformer.Core.csproj" />
     </ItemGroup>
 
 </Project>

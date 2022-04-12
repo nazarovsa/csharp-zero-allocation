@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Guider", "Guider", "{EBF37B58-0CEC-4338-BA5D-BB1528A30B98}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GuidTransformer", "GuidTransformer", "{EBF37B58-0CEC-4338-BA5D-BB1528A30B98}"
 	ProjectSection(SolutionItems) = preProject
 		Guider\README.md = Guider\README.md
 	EndProjectSection
@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generation", "Generation", 
 		Generation\README.md = Generation\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Core", "Guider\Guider.Core\Guider.Core.csproj", "{D9D3DA8B-8A0B-43C1-8700-5F9CE68A8B3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidTransformer.Core", "Guider\GuidTransformer.Core\GuidTransformer.Core.csproj", "{D9D3DA8B-8A0B-43C1-8700-5F9CE68A8B3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Console", "Guider\Guider.Console\Guider.Console.csproj", "{1803B375-1B13-48BA-B838-261E052B5028}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidTransformer.Console", "Guider\GuidTransformer.Console\GuidTransformer.Console.csproj", "{1803B375-1B13-48BA-B838-261E052B5028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guider.Benchmark", "Guider\Guider.Benchmark\Guider.Benchmark.csproj", "{5A5C2161-47AB-4762-9CB6-506150B1D055}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuidTransformer.Benchmark", "Guider\GuidTransformer.Benchmark\GuidTransformer.Benchmark.csproj", "{5A5C2161-47AB-4762-9CB6-506150B1D055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Core", "Generation\Generation.Core\Generation.Core.csproj", "{64C802A9-4054-46C7-A5F5-7C3EE5E94557}"
 EndProject

@@ -1,7 +1,6 @@
 using BenchmarkDotNet.Attributes;
-using Guider.Core;
 
-namespace Guider.Benchmark;
+namespace GuidTransformer.Benchmark;
 
 [MemoryDiagnoser(false)]
 public class GuidTransformerBenchmark
@@ -12,24 +11,24 @@ public class GuidTransformerBenchmark
     [Benchmark]
     public Guid ToGuidFromString()
     {
-        return GuidTransformer.ToGuidFromString(StringForTests);
+        return Core.GuidTransformer.ToGuidFromString(StringForTests);
     }
     
     [Benchmark]
     public Guid ToGuidFromStringEfficient()
     {
-        return GuidTransformer.ToGuidFromStringEfficient(StringForTests);
+        return Core.GuidTransformer.ToGuidFromStringEfficient(StringForTests);
     }
     
     [Benchmark]
     public string ToStringFromGuid()
     {
-        return GuidTransformer.ToStringFromGuid(GuidForTests);
+        return Core.GuidTransformer.ToStringFromGuid(GuidForTests);
     }
 
     [Benchmark]
     public string ToStringFromGuidEfficient()
     {
-        return GuidTransformer.ToStringFromGuidEfficient(GuidForTests);
+        return Core.GuidTransformer.ToStringFromGuidEfficient(GuidForTests);
     }
 }

@@ -1,7 +1,7 @@
 using System.Text;
 using ZeroAllocation.Core;
 
-namespace ZeroAllocation.Benchmark;
+namespace ZeroAllocation.Benchmark.QueryBuilders;
 
 public static class QueryBuilder
 {

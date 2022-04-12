@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Running;
-using ZeroAllocation.Benchmark;
+using ZeroAllocation.Benchmark.QueryBuilders;
 
-BenchmarkRunner.Run<ZeroAllocationBenchmark>();
+BenchmarkRunner.Run<QueryBuilderBenchmark>();
+// BenchmarkRunner.Run<ObjectPoolBenchmark>();

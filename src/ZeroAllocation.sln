@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Console", "Gener
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generation.Benchmark", "Generation\Generation.Benchmark\Generation.Benchmark.csproj", "{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroAllocation.Core", "ZeroAllocation.Core\ZeroAllocation.Core.csproj", "{BF35B3FE-2D9E-42B0-8D89-30D27301A056}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,5 +67,9 @@ Global
 		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4018C95-A81D-4A7B-8141-5A3F6B7584C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF35B3FE-2D9E-42B0-8D89-30D27301A056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF35B3FE-2D9E-42B0-8D89-30D27301A056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF35B3FE-2D9E-42B0-8D89-30D27301A056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF35B3FE-2D9E-42B0-8D89-30D27301A056}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

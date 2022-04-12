@@ -140,20 +140,6 @@ Object pools are primarily used for performance: in some circumstances, object p
 
 Obviously, if we are reusing objects, it allow us to save memory and prevent GC collections. We don't need to create and destroy extra objects anymore, because we taking them from the pool.
 
-#### How to manage size of the pool
-
-In some cases, when performing operations with high-load, the number of objects in our pool can be very large. And when the load decreases, we don't need so many objects in the pool. 
-
-There are popular ways to manage size of the pool:
-- Clear pool manually at some point in your code. You should be careful, because it require manual actions.
-- Use "smart" creation of objects. For example, when your pool is full, you can create new object via `new` operator. Of course, it will lead to extra memory usage and trigger GC more often. But you will forget about the manual steps. You can choose maximum pool size for a particular case to minimize extra load on GC and memory allocation.
-
-For example, your `Get` method can be implemented as follows:
-
-```csharp
-
-```
-
 ## Practice
 
 - ValueStringBuilder.

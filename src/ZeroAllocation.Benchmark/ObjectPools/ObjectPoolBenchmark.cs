@@ -6,58 +6,41 @@ namespace ZeroAllocation.Benchmark.ObjectPools;
 [MemoryDiagnoser]
 public class ObjectPoolBenchmark
 {
-    private static List<string> _albums = new List<string>
-    {
-        "Are you experienced?",
-        "And Justice For All",
-        "Mass V",
-        "The Wall",
-        "Fortitude",
-        "L'Enfant Sauvage",
-        "Metallica",
-        "The Number of the Beast",
-    };
+    private static long _count = 100;
 
     [Benchmark]
-    public void ProcessTicketsObjectPool()
+    public void ProcessExample()
     {
-        var objectPool = new ObjectPool<WordProcessor>(16);
-
-        var modifiedStringCount = 0;
-        var operationsAmount = 5;
-        Parallel.For(0L, operationsAmount, (i, _) =>
+        // Create a high demand for ExampleObject instance.
+        Parallel.For(0, _count, (i, loopState) =>
         {
-            var index = (int)i % _albums.Count;
-            var str = _albums[index];
-            var processor = objectPool.Get();
-
-            var result = processor.ProcessString(str);
-
-            if (result.Equals(str, StringComparison.Ordinal))
-            {
-                Interlocked.Increment(ref modifiedStringCount);
-            }
-
-            objectPool.Return(processor);
+            var example = new ExampleObject();
+            Console.CursorLeft = 0;
+            // This is the bottleneck in our application. All threads in this loop
+            // must serialize their access to the static Console class.
+            Console.WriteLine($"{example.GetValue(i):####.####}");
         });
     }
 
     [Benchmark]
-    public void ProcessTicketsCreateInstances()
+    public void ProcessExampleObjectPool()
     {
-        var modifiedStringCount = 0;
-        var operationsAmount = 5;
-        Parallel.For(0L, operationsAmount, (i, _) =>
+        var pool = new ObjectPool<ExampleObject>(16);
+
+        // Create a high demand for ExampleObject instance.
+        Parallel.For(0, _count, (i, loopState) =>
         {
-            var processor = new WordProcessor();
-            var index = (int)i % _albums.Count;
-            var str = _albums[index];
-
-            var result = processor.ProcessString(str);
-
-            if (result.Equals(str, StringComparison.Ordinal))
+            var example = pool.Get();
+            try
             {
-                Interlocked.Increment(ref modifiedStringCount);
+                Console.CursorLeft = 0;
+                // This is the bottleneck in our application. All threads in this loop
+                // must serialize their access to the static Console class.
+                Console.WriteLine($"{example.GetValue(i):####.####}");
+            }
+            finally
+            {
+                pool.Return(example);
             }
         });
     }

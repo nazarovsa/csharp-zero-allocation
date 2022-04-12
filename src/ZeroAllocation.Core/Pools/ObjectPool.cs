@@ -2,12 +2,8 @@ using System.Collections.Concurrent;
 
 namespace ZeroAllocation.Core.Pools;
 
-public interface IPoolable
-{
-}
-
 public class ObjectPool<T>
-    where T : IPoolable, new()
+    where T : new()
 {
     private readonly int _maxSize;
 

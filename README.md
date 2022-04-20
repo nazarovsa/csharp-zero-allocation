@@ -142,7 +142,7 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 
 ## Practice
 
-- ValueStringBuilder.
+- [ValueStringBuilder](https://github.com/nazarovsa/csharp-zero-allocation/blob/main/src/ZeroAllocation.Core/ValueStringBuilder.cs)
 - [GuidTransformer](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Guider) - Sample of optimization of guid to efficient string helper.
 - [Abstract lottery ticket combination generator](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Generation)
 
@@ -155,7 +155,7 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 - [`IMemoryOwner<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=net-6.0)
 - [.NET Platform Architecture. Stanislav Sidristij - Memory<T> and Span<T>](https://github.com/sidristij/dotnetbook/blob/master/book/en/MemorySpan.md)
 - [What is Span in C# and why you should be using it](https://www.youtube.com/watch?v=FM5dpxJMULY)
-- [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - Guider sample taken from this video.
+- [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - GuidTransformer sample taken from this video.
 - [RU - Станислав Сидристый — Делаем zero-allocation код на примере оптимизации крупной библиотеки](https://www.youtube.com/watch?v=-FDfnUyYSyc)
 - [ValueStringBuilder: a stack-based string-builder](https://andrewlock.net/a-deep-dive-on-stringbuilder-part-6-vaulestringbuilder-a-stack-based-string-builder/)
 - [ValueStringBuilder: source code](https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs)

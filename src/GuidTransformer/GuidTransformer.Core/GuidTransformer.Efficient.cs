@@ -1,5 +1,6 @@
 using System.Buffers.Text;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace GuidTransformer.Core;
 
@@ -43,6 +44,7 @@ public static partial class GuidTransformer
 
         for (var i = 0; i < 22; i++)
         {
+            Encoding.UTF8.GetString(new byte[1]);
             base64Chars[i] = id[i] switch
             {
                 Hyphen => Slash,

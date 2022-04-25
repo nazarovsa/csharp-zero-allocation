@@ -6,18 +6,19 @@ namespace Generation.Benchmark;
 [MemoryDiagnoser]
 public class GenerationBenchmark
 {
-    private static readonly CombinationGenerator Generator = new CombinationGenerator();
+    private static readonly CombinationGenerator Generator = new(10);
+    private static readonly CombinationGeneratorEfficient GeneratorEfficient = new(10);
     
     [Benchmark]
     public void GenerateCombination()
     {
-        Generator.MoveNext();
+        Generator.Generate();
     }
 
     [Benchmark]
     public void GenerateCombinationEfficient()
     {
-        Generator.MoveNextEfficient();
+        GeneratorEfficient.MoveNext();
     }
 
     [Benchmark]
@@ -25,7 +26,7 @@ public class GenerationBenchmark
     {
         for (var i = 0; i < 10000; i++)
         {
-            Generator.MoveNext();
+            Generator.Generate();
         }
     }
 
@@ -34,7 +35,7 @@ public class GenerationBenchmark
     {
         for (var i = 0; i < 10000; i++)
         {
-            Generator.MoveNextEfficient();
+            GeneratorEfficient.MoveNext();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 |                    Method |      Mean |    Error |   StdDev | Allocated |
 |-------------------------- |----------:|---------:|---------:|----------:|
-|          ToGuidFromString | 109.34 ns | 1.392 ns | 1.234 ns |     184 B |
-| ToGuidFromStringEfficient |  50.80 ns | 0.214 ns | 0.189 ns |         - |
-|          ToStringFromGuid | 121.99 ns | 0.480 ns | 0.449 ns |     256 B |
-| ToStringFromGuidEfficient |  40.07 ns | 0.376 ns | 0.370 ns |      72 B |
+|          ToGuidFromString | 101.63 ns | 0.244 ns | 0.190 ns |     184 B |
+| ToGuidFromStringEfficient |  48.69 ns | 1.087 ns | 0.908 ns |         - |
+|          ToStringFromGuid | 117.85 ns | 1.724 ns | 1.528 ns |     256 B |
+| ToStringFromGuidEfficient |  40.45 ns | 0.195 ns | 0.152 ns |      72 B |

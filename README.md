@@ -143,8 +143,8 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 ## Practice
 
 - [ValueStringBuilder](https://github.com/nazarovsa/csharp-zero-allocation/blob/main/src/ZeroAllocation.Core/ValueStringBuilder.cs)
-- [GuidTransformer](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Guider) - Sample of optimization of guid to efficient string helper.
-- [Abstract lottery ticket combination generator](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Generation)
+- [GuidTransformer](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/GuidTransformer) - Optimization sample of guid to efficient string helper.
+- [Abstract lottery ticket combination generator](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Generation) - Optimization sample of lottery ticket combination generator.
 
 ## Sources
 

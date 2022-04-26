@@ -8,5 +8,5 @@ Efficient string is a string that represents a guid in user friendly format. For
 4. Remove the tailing '=' characters (Because length of our guid is always constant and we can return it back while transforming from string to guid)
 
 ## Projects
-- **Guider.Benchmark** - Console application with benchmarking. (non-)/zero allocation solutions.
-- **Guider.Console** - Console application with example.
+- **GuidTransformer.Benchmark** - Console application with benchmarking. (non-)/zero allocation solutions.
+- **GuidTransformer.Console** - Console application with example.

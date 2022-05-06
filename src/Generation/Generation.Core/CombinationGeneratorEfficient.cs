@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices;
-
 namespace Generation.Core;
 
 public class CombinationGeneratorEfficient

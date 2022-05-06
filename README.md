@@ -11,6 +11,48 @@ Reasons why we have problems with memory:
 Our main principle is "Allocate as little memory as possible". It may seem strange, but in some cases we can avoid allocating memory at all.  
 Next instruments will help us with it.
 
+### Structures and their vagaries
+
+#### Declare immutable structs as readonly
+
+In progress...
+
+#### Declare readonly members for mutable structs
+
+In progress...
+
+#### Use ref readonly return statements
+
+In progress...
+
+#### Use the in parameter modifier
+
+The following sections explain what the in modifier does, how to use it, and when to use it for performance optimization.
+
+##### The out, ref, and in keywords
+
+In progress...
+
+##### Use in parameters for large structs
+
+In progress...
+
+##### Optional use of in at call site
+
+In progress...
+
+##### Avoid defensive copies
+
+In progress...
+
+#### Use ref struct types
+
+In progress...
+
+#### Conclusions
+
+In progress...
+
 ### `Span<T>`, `ReadOnlySpan<T>`, stackalloc
 
 #### `Span<T>`
@@ -153,6 +195,7 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 - [`stackalloc`: docs](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc)
 - [`Memory<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.memory-1?view=net-6.0)
 - [`IMemoryOwner<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.buffers.imemoryowner-1?view=net-6.0)
+- [Write safe and efficient C# code](https://docs.microsoft.com/en-us/dotnet/csharp/write-safe-efficient-code)
 - [.NET Platform Architecture. Stanislav Sidristij - Memory<T> and Span<T>](https://github.com/sidristij/dotnetbook/blob/master/book/en/MemorySpan.md)
 - [What is Span in C# and why you should be using it](https://www.youtube.com/watch?v=FM5dpxJMULY)
 - [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - GuidTransformer sample taken from this video.

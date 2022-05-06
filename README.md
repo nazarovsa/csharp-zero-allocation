@@ -29,10 +29,10 @@ The language features highlighted in this section provide mechanisms that enable
 Use these features wisely to minimize both allocations and copy operations.
 
 The section also explains some low-level optimizations that are advisable when you've run a profiler and have identified bottlenecks:
-- Use the in parameter modifier.
-- Use ref readonly return statements.
-- Use ref struct types.
-- Use nint and nuint types.  
+- Use the `in` parameter modifier.
+- Use `ref readonly return` statements.
+- Use `ref struct` types.
+- Use `nint` and `nuint` types.  
 
 These techniques balance two competing goals:
 - **Minimize allocations on the heap**: variables that are reference types hold a reference to a location in memory and are allocated on the managed heap. Only the reference is copied when a reference type is passed as an argument to a method or returned from a method. Each new object requires a new allocation, and later must be reclaimed. Garbage collection takes time.

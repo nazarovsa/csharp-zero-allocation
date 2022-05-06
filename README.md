@@ -1,25 +1,136 @@
 # C# Zero Allocation
 
+Repository contains materials collected by me about memory allocation and optimization. 
+At the end of README.md you can find links to original sources.  
+
+**All rights for original materials belong to the authors.**
+
 ## Memory problems in our algorithms
 
 Reasons why we have problems with memory:
 - Incorrect memory allocation. (Create objects in loops, etc.)
 - Weak knowledge about how the .net platform operates. (String is immutable, etc.)
+- Weak knowledge about language features.
 
 ## Our instruments for optimization
 
 Our main principle is "Allocate as little memory as possible". It may seem strange, but in some cases we can avoid allocating memory at all.  
 Next instruments will help us with it.
 
-### Structures and their vagaries
+### Structures and their vagaries (~ 17 minutes to read)
+Much of the sample code in this section uses features added in **C# 7.2**. 
+To use those features, make sure your project isn't configured to use an earlier version. 
+
+As we know, `struct` is a value type.
+One advantage to using value types is that they often avoid heap allocations. 
+The disadvantage is that they're copied by value. 
+This trade-off makes it harder to optimize algorithms that operate on large amounts of data. 
+The language features highlighted in this section provide mechanisms that enable safe efficient code using references to value types. 
+Use these features wisely to minimize both allocations and copy operations.
+
+The section also explains some low-level optimizations that are advisable when you've run a profiler and have identified bottlenecks:
+- Use the in parameter modifier.
+- Use ref readonly return statements.
+- Use ref struct types.
+- Use nint and nuint types.  
+
+These techniques balance two competing goals:
+- **Minimize allocations on the heap**: variables that are reference types hold a reference to a location in memory and are allocated on the managed heap. Only the reference is copied when a reference type is passed as an argument to a method or returned from a method. Each new object requires a new allocation, and later must be reclaimed. Garbage collection takes time.
+- **Minimize the copying of values**: variables that are value types directly contain their value, and the value is typically copied when passed to a method or returned from a method. This behavior includes copying the value of this when calling iterators and async instance methods of structs. The copy operation takes time, depending on the size of the type.
+
+This section uses the following example concept of the 3D-point structure to explain its recommendations:
+```csharp
+public struct Point3D
+{
+    public double X;
+    public double Y;
+    public double Z;
+}
+```
+Different examples use different implementations of this concept.
 
 #### Declare immutable structs as readonly
 
-In progress...
+Declare a `readonly struct` to indicate that a type is **immutable**. 
+The readonly modifier informs the compiler that your intent is to create an immutable type. 
+
+The compiler enforces that design decision with the following rules:
+- All field members must be read-only.
+- All properties must be read-only, including auto-implemented properties.
+ 
+These two rules are sufficient to ensure that no member of a `readonly struct` modifies the state of that struct. 
+The struct is immutable. The Point3D structure could be defined as an immutable struct as shown in the following example:
+
+```csharp
+readonly public struct ReadonlyPoint3D
+{
+    public ReadonlyPoint3D(double x, double y, double z)
+    {
+        this.X = x;
+        this.Y = y;
+        this.Z = z;
+    }
+
+    public double X { get; }
+    public double Y { get; }
+    public double Z { get; }
+}
+```
+
+Follow this recommendation whenever your design intent is to create an immutable value type. 
+Any performance improvements are an added benefit. The `readonly struct` keywords clearly express your design intent.
 
 #### Declare readonly members for mutable structs
 
-In progress...
+In C# 8.0 and later, when a struct type is mutable, declare members that don't modify state as [readonly members](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct#readonly-instance-members).
+Consider a different application that needs a 3D point structure, but must support mutability. 
+The following version of the 3D point structure adds the readonly modifier only to those members that don't modify the structure. 
+Follow this example when your design must support modifications to the struct by some members, but you still want the benefits of enforcing readonly on some members:
+
+```csharp
+public struct Point3D
+{
+    public Point3D(double x, double y, double z)
+    {
+        _x = x;
+        _y = y;
+        _z = z;
+    }
+
+    private double _x;
+    public double X
+    {
+        readonly get => _x;
+        set => _x = value;
+    }
+
+    private double _y;
+    public double Y
+    {
+        readonly get => _y;
+        set => _y = value;
+    }
+
+    private double _z;
+    public double Z
+    {
+        readonly get => _z;
+        set => _z = value;
+    }
+
+    public readonly double Distance => Math.Sqrt(X * X + Y * Y + Z * Z);
+
+    public readonly override string ToString() => $"{X}, {Y}, {Z}";
+}
+```
+
+The preceding sample shows many of the locations where you can apply the `readonly` modifier: methods, properties, and property accessors. 
+If you use auto-implemented properties, the compiler adds the `readonly` modifier to the `get` accessor for read-write properties. 
+The compiler adds the `readonly` modifier to the auto-implemented property declarations for properties with only a `get` accessor.
+
+Adding the `readonly` modifier to members that don't mutate state provides two related benefits. First, the compiler enforces your intent. 
+That member can't mutate the struct's state. Second, the compiler won't create [defensive copies](https://github.com/nazarovsa/csharp-zero-allocation#avoid-defensive-copies) of `in` parameters when accessing a `readonly` member. 
+The compiler can make this optimization safely because it guarantees that the `struct` is not modified by a `readonly` member.
 
 #### Use ref readonly return statements
 
@@ -31,11 +142,65 @@ The following sections explain what the in modifier does, how to use it, and whe
 
 ##### The out, ref, and in keywords
 
-In progress...
+The `in` keyword complements the `ref` and `out` keywords to pass arguments by reference. 
+The `in` keyword specifies that the argument is passed by reference, but the called method doesn't modify the value. 
+The `in` modifier can be applied to any member that takes parameters, such as methods, delegates, lambdas, local functions, indexers, and operators.
+
+With the addition of the `in` keyword, C# provides a full vocabulary to express your design intent. Value types are copied when passed to a called method when you don't specify any of the following modifiers in the method signature. Each of these modifiers specifies that a variable is passed by reference, avoiding the copy. Each modifier expresses a different intent:
+- `out`: This method sets the value of the argument used as this parameter.
+- `ref`: This method may modify the value of the argument used as this parameter.
+- `in`: This method doesn't modify the value of the argument used as this parameter.
+
+Add the `in` modifier to pass an argument by reference and declare your design intent to pass arguments by reference to avoid unnecessary copying. 
+You don't intend to modify the object used as that argument.
+
+The `in` modifier complements `out` and `ref` in other ways as well. 
+You can't create overloads of a method that differ only in the presence of `in`, `out`, or `ref`. 
+These new rules extend the same behavior that had always been defined for `out` and `ref` parameters. 
+Like the `out` and `ref` modifiers, value types aren't boxed because the `in` modifier is applied. 
+Another feature of `in` parameters is that you can use literal values or constants for the argument to an `in` parameter.
+
+The `in` modifier can also be used with reference types or numeric values. However, the benefits in those cases are minimal, if any.
+
+There are several ways in which the compiler enforces the read-only nature of an `in` argument. 
+First of all, the called method can't directly assign to an `in` parameter. 
+It can't directly assign to any field of an `in` parameter when that value is a `struct` type. 
+In addition, you can't pass an `in` parameter to any method using the `ref` or `out` modifier. 
+These rules apply to any field of an `in` parameter, provided the field is a `struct` type and the parameter is also a `struct` type. 
+In fact, these rules apply for multiple layers of member access provided the types at all levels of member access are `structs`. 
+The compiler enforces that `struct` types passed as `in` arguments and their `struct` members are read-only variables when used as arguments to other methods.
 
 ##### Use in parameters for large structs
 
-In progress...
+You can apply the `in` modifier to any `readonly struct` parameter, 
+but this practice is likely to improve performance only for value types that are substantially larger than [IntPtr.Size](https://docs.microsoft.com/en-us/dotnet/api/system.intptr.size?view=net-6.0#system-intptr-size). 
+For simple types (such as `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`, `float`, `double`, `decimal` and `bool`, and `enum` types), 
+any potential performance gains are minimal. 
+Some simple types, such as `decimal` at 16 bytes in size, 
+are larger than either 4-byte or 8-byte references but not by enough to make a measurable difference in performance in most scenarios. 
+And performance may degrade by using pass-by-reference for types smaller than [IntPtr.Size](https://docs.microsoft.com/en-us/dotnet/api/system.intptr.size?view=net-6.0#system-intptr-size).
+
+The following code shows an example of a method that calculates the distance between two points in 3D space.
+
+```csharp
+private static double CalculateDistance(in Point3D point1, in Point3D point2)
+{
+    double xDifference = point1.X - point2.X;
+    double yDifference = point1.Y - point2.Y;
+    double zDifference = point1.Z - point2.Z;
+
+    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+}
+```
+
+The arguments are two structures that each contain three doubles. 
+A double is 8 bytes, so each argument is 24 bytes. 
+By specifying the in modifier, you pass a 4-byte or 8-byte reference to those arguments, depending on the architecture of the machine. 
+The difference in size is small, but it can add up when your application calls this method in a tight loop using many different values.
+
+However, the impact of any low-level optimizations like using the `in` modifier should be measured to validate a performance benefit. 
+For example, you might think that using in on a `Guid` parameter would be beneficial. The `Guid` type is 16 bytes in size, twice the size of an 8-byte reference. 
+But such a small difference isn't likely to result in a measurable performance benefit unless it's in a method that's in a time critical hot path for your application.
 
 ##### Optional use of in at call site
 
@@ -47,11 +212,34 @@ In progress...
 
 #### Use ref struct types
 
-In progress...
+Use a ref struct or a `readonly ref struct`, such as `Span<T>` or `ReadOnlySpan<T>`, to work with blocks of memory as a sequence of bytes. The memory used by the span is constrained to a single stack frame. This restriction enables the compiler to make several optimizations. The primary motivation for this feature was Span<T> and related structures. You'll achieve performance improvements from these enhancements by using new and updated .NET APIs that make use of the Span<T> type.
+
+Declaring a struct as `readonly ref` combines the benefits and restrictions of `ref struct` and `readonly struct` declarations. The memory used by the readonly span is restricted to a single stack frame, and the memory used by the readonly span can't be modified.
+
+You may have similar requirements working with memory created using `stackalloc` or when using memory from interop APIs. You can define your own `ref struct` types for those needs.
+
+#### Use nint and nuint types
+
+[Native-sized integer types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nint-nuint) are 32-bit integers in a 32-bit process or 64-bit integers in a 64-bit process. 
+Use them for interop scenarios, low-level libraries, and to optimize performance in scenarios where integer math is used extensively.
 
 #### Conclusions
 
-In progress...
+Using value types minimizes the number of allocation operations:
+- Storage for value types is stack-allocated for local variables and method arguments.
+- Storage for value types that are members of other objects is allocated as part of that object, not as a separate allocation.
+- Storage for value type return values is stack allocated.
+
+Contrast that with reference types in those same situations:
+- Storage for reference types is heap allocated for local variables and method arguments. The reference is stored on the stack.
+- Storage for reference types that are members of other objects are separately allocated on the heap. The containing object stores the reference.
+- Storage for reference type return values is heap allocated. The reference to that storage is stored on the stack.
+
+Minimizing allocations comes with tradeoffs. You copy more memory when the size of the struct is larger than the size of a reference. A reference is typically 64 bits or 32 bits, and depends on the target machine CPU.
+
+These tradeoffs generally have minimal performance impact. However, for large structs or larger collections, the performance impact increases. The impact can be large in tight loops and hot paths for programs.
+
+These enhancements to the C# language are designed for performance critical algorithms where minimizing memory allocations is a major factor in achieving the necessary performance. You may find that you don't often use these features in the code you write. However, these enhancements have been adopted throughout .NET. As more APIs make use of these features, you'll see the performance of your applications improve.
 
 ### `Span<T>`, `ReadOnlySpan<T>`, stackalloc
 

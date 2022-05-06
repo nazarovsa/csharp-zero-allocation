@@ -18,8 +18,8 @@ Our main principle is "Allocate as little memory as possible". It may seem stran
 Next instruments will help us with it.
 
 ### Structures and their vagaries (~ 17 minutes to read)
-Much of the sample code in this section uses features added in **C# 7.2**. 
-To use those features, make sure your project isn't configured to use an earlier version. 
+_Much of the sample code in this section uses features added in **C# 7.2**. 
+To use those features, make sure your project isn't configured to use an earlier version._ 
 
 As we know, `struct` is a value type.
 One advantage to using value types is that they often avoid heap allocations. 

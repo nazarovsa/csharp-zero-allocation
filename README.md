@@ -9,13 +9,15 @@ At the end of README.md you can find links to original sources.
 
 Reasons why we have problems with memory:
 - Incorrect memory allocation. (Create objects in loops, etc.)
-- Weak knowledge about how the .net platform operates. (String is immutable, etc.)
+- Weak knowledge about how the .net platform operates. (String is immutable, struct types are copied on pass, etc.)
 - Weak knowledge about language features.
 
 ## Our instruments for optimization
 
-Our main principle is "Allocate as little memory as possible". It may seem strange, but in some cases we can avoid allocating memory at all.  
-Next instruments will help us with it.
+Our main principle is "Allocate as little memory as possible". But sometimes it is not enough.
+It may seem strange, but in some cases, we can avoid allocating memory at all if we know the advanced features of a language.
+
+Let's start with some interesting facts about the `struct` type and then look closer to other instruments for optimization.
 
 ### Structures and their vagaries (~ 17 minutes to read)
 _Much of the sample code in this section uses features added in **C# 7.2**. 

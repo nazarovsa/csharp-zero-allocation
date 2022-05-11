@@ -132,9 +132,64 @@ Adding the `readonly` modifier to members that don't mutate state provides two r
 That member can't mutate the struct's state. Second, the compiler won't create [defensive copies](https://github.com/nazarovsa/csharp-zero-allocation#avoid-defensive-copies) of `in` parameters when accessing a `readonly` member. 
 The compiler can make this optimization safely because it guarantees that the `struct` is not modified by a `readonly` member.
 
-#### Use ref readonly return statements
+#### Use `ref readonly return` statements
 
-In progress...
+Use a `ref readonly return` when both of the following conditions are true:
+- The return value is a `struct` larger than [IntPtr.Size](https://docs.microsoft.com/en-us/dotnet/api/system.intptr.size?view=net-6.0#system-intptr-size).
+- The storage lifetime is greater than the method returning the value.
+
+You can return values by reference when the value being returned isn't local to the returning method. 
+Returning by reference means that only the reference is copied, not the structure. 
+In the following example, the Origin property can't use a ref return because the value being returned is a local variable:
+```csharp
+public Point3D Origin => new Point3D(0,0,0);
+```
+
+However, the following property definition can be returned by reference because the returned value is a static member:
+```csharp
+public struct Point3D
+{
+    private static Point3D origin = new Point3D(0,0,0);
+
+    // Dangerous! returning a mutable reference to internal storage
+    public ref Point3D Origin => ref origin;
+
+    // other members removed for space
+}
+```
+
+You don't want callers modifying the origin, so you should return the value by ref readonly:
+```csharp
+public struct Point3D
+{
+    private static Point3D origin = new Point3D(0,0,0);
+
+    public static ref readonly Point3D Origin => ref origin;
+
+    // other members removed for space
+}
+```
+
+Returning `ref readonly enables` you to save copying larger structures and preserve the immutability of your internal data members.
+At the call site, callers make the choice to use the `Origin` property as a `ref readonly` or as a value:
+
+```csharp
+var originValue = Point3D.Origin;
+ref readonly var originReference = ref Point3D.Origin;
+```
+
+The first assignment in the preceding code makes a copy of the `Origin` constant and assigns that copy. 
+The second assigns a reference. 
+Notice that the `readonly` modifier must be part of the declaration of the variable. The reference to which it refers can't be modified. Attempts to do so result in a compile-time error.
+
+The `readonly` modifier is required on the declaration of `originReference`.
+
+The compiler enforces that the caller can't modify the reference. 
+Attempts to assign the value directly generate a compile-time error. 
+In other cases, the compiler allocates a defensive copy unless it can safely use the readonly reference. 
+Static analysis rules determine if the struct could be modified. 
+The compiler doesn't create a defensive copy when the struct is a `readonly struct` or the member is a `readonly` member of the struct. 
+Defensive copies aren't needed to pass the struct as an `in` argument.
 
 #### Use the in parameter modifier
 
@@ -204,11 +259,104 @@ But such a small difference isn't likely to result in a measurable performance b
 
 ##### Optional use of in at call site
 
-In progress...
+Unlike a `ref` or `out` parameter, you don't need to apply the `in` modifier at the call site. 
+The following code shows two examples of calling the `CalculateDistance` method. 
+The first uses two local variables passed by reference. 
+The second includes a temporary variable created as part of the method call.
+```csharp
+var distance = CalculateDistance(pt1, pt2);
+var fromOrigin = CalculateDistance(pt1, new Point3D());
+```
+
+Omitting the `in` modifier at the call site informs the compiler that it's allowed to make a copy of the argument for any of the following reasons:
+- There exists an implicit conversion but not an identity conversion from the argument type to the parameter type.
+- The argument is an expression but doesn't have a known storage variable.
+- An overload exists that differs by the presence or absence of `in`. In that case, the by value overload is a better match.
+
+These rules are useful as you update existing code to use read-only reference arguments. 
+Inside the called method, you can call any instance method that uses by-value parameters. 
+In those instances, a copy of the `in` parameter is created.
+
+Because the compiler may create a temporary variable for any `in` parameter, 
+you can also specify default values for any `in` parameter. 
+The following code specifies the origin (point 0,0,0) as the default value for the second point:
+```csharp
+private static double CalculateDistance2(in Point3D point1, in Point3D point2 = default)
+{
+    double xDifference = point1.X - point2.X;
+    double yDifference = point1.Y - point2.Y;
+    double zDifference = point1.Z - point2.Z;
+
+    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+}
+```
+
+To force the compiler to pass read-only arguments by reference, 
+specify the `in` modifier on the arguments at the call site, as shown in the following code:
+```csharp
+distance = CalculateDistance(in pt1, in pt2);
+distance = CalculateDistance(in pt1, new Point3D());
+distance = CalculateDistance(pt1, in Point3D.Origin);
+```
+This behavior makes it easier to adopt `in` parameters over time in large codebases where performance gains are possible. 
+You add the `in` modifier to method signatures first. 
+Then you can add the `in` modifier at call sites
+and create `readonly struct` types to enable the compiler to avoid creating defensive copies of `in` parameters in more locations.
 
 ##### Avoid defensive copies
 
-In progress...
+Pass a `struct` as the argument for an `in` parameter only if it's declared with the `readonly` modifier or the method accesses only `readonly` members of the struct. 
+Otherwise, the compiler must create _defensive copies_ in many situations to ensure that arguments are not mutated. 
+Consider the following example that calculates the distance of a 3D point from the origin:
+```csharp
+private static double CalculateDistance(in Point3D point1, in Point3D point2)
+{
+    double xDifference = point1.X - point2.X;
+    double yDifference = point1.Y - point2.Y;
+    double zDifference = point1.Z - point2.Z;
+
+    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+}
+```
+
+The `Point3D` structure is not a read-only struct. 
+There are six different property access calls in the body of this method. 
+On first examination, you may think these accesses are safe. 
+After all, a `get` accessor shouldn't modify the state of the object. 
+But there's no language rule that enforces that. 
+It's only a common convention. 
+Any type could implement a `get` accessor that modified the internal state.
+
+Without some language guarantee, the compiler must create a temporary copy of the argument before calling any member not marked with the `readonly` modifier. 
+The temporary storage is created on the stack, the values of the argument are copied to the temporary storage, 
+and the value is copied to the stack for each member access as the `this` argument. 
+In many situations, these copies harm performance enough that pass-by-value is faster 
+than pass-by-read-only-reference when the argument type isn't a `readonly struct` and the method calls members that aren't marked `readonly`. 
+If you mark all methods that don't modify the struct state as `readonly`, 
+the compiler can safely determine that the struct state isn't modified, and a defensive copy is not needed.
+
+If the distance calculation uses the immutable struct, `ReadonlyPoint3D`, temporary objects aren't needed:
+```csharp
+private static double CalculateDistance3(in ReadonlyPoint3D point1, in ReadonlyPoint3D point2 = default)
+{
+    double xDifference = point1.X - point2.X;
+    double yDifference = point1.Y - point2.Y;
+    double zDifference = point1.Z - point2.Z;
+
+    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+}
+```
+
+The compiler generates more efficient code when you call members of a `readonly struct`. 
+The `this` reference, instead of a copy of the receiver, is always an `in` parameter passed by reference to the member method. 
+This optimization saves copying when you use a `readonly struct` as an `in` argument.
+
+Don't pass a nullable value type as an `in` argument. 
+The `Nullable<T>` type isn't declared as a read-only struct. 
+That means the compiler must generate defensive copies for any nullable value type argument passed to a method using the `in` modifier on the parameter declaration.
+
+You can see an example program that demonstrates the performance differences using BenchmarkDotNet in dotnet [samples repository](https://github.com/dotnet/samples/tree/main/csharp/safe-efficient-code/benchmark) on GitHub. 
+It compares passing a mutable struct by value and by reference with passing an immutable struct by value and by reference. The use of the immutable struct and pass by reference is fastest.
 
 #### Use ref struct types
 

@@ -9,7 +9,6 @@
 
     <ItemGroup>
         <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-        <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="6.0.4" />
     </ItemGroup>
 
     <ItemGroup>

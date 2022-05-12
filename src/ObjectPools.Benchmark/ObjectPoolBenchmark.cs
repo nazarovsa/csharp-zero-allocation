@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.ObjectPool;
 
-namespace ZeroAllocation.Benchmark.ObjectPools;
+namespace ObjectPools.Benchmark;
 
 [MemoryDiagnoser]
 public class ObjectPoolBenchmark

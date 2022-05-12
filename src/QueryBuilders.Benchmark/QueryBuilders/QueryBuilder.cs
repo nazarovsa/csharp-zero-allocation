@@ -1,7 +1,7 @@
 using System.Text;
 using ZeroAllocation.Core;
 
-namespace ZeroAllocation.Benchmark.QueryBuilders;
+namespace QueryBuilders.Benchmark.QueryBuilders;
 
 public static class QueryBuilder
 {
@@ -12,7 +12,8 @@ public static class QueryBuilder
         // Simulate params
         if (true)
         {
-            result += "WHERE ID = @ID";
+            result += "WHERE ID = @ID ";
+            result += "AND CreationDate > @CreationDate";
         }
         result += "ORDER BY CreationDate DESC";
 
@@ -26,7 +27,8 @@ public static class QueryBuilder
         // Simulate params
         if (true)
         {
-            sb.Append("WHERE ID = @ID");
+            sb.Append("WHERE ID = @ID ");
+            sb.Append("AND CreationDate > @CreationDate");
         }
 
         sb.Append("ORDER BY CreationDate DESC");
@@ -43,7 +45,7 @@ public static class QueryBuilder
         // Simulate params
         if (true)
         {
-            vsb.Append("WHERE ID = @ID");
+            vsb.Append("WHERE ID = @ID ");
             vsb.Append("AND CreationDate > @CreationDate");
         }
         

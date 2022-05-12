@@ -523,6 +523,8 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 ## Practice
 
 - [ValueStringBuilder](https://github.com/nazarovsa/csharp-zero-allocation/blob/main/src/ZeroAllocation.Core/ValueStringBuilder.cs)
+- [QueryBuilder](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/QueryBuilders.Benchmark) - Benchmarks of building queries by different ways.
+- [QueryBuilder](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/ObjectPools.Benchmark) - Benchmarks of object pool usage.
 - [GuidTransformer](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/GuidTransformer) - Optimization sample of guid to efficient string helper.
 - [Abstract lottery ticket combination generator](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Generation) - Optimization sample of lottery ticket combination generator.
 

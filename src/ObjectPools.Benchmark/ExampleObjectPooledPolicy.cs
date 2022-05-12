@@ -1,6 +1,6 @@
 using Microsoft.Extensions.ObjectPool;
 
-namespace ZeroAllocation.Benchmark.ObjectPools;
+namespace ObjectPools.Benchmark;
 
 public class ExampleObjectPooledPolicy : DefaultPooledObjectPolicy<ExampleObject>
 {

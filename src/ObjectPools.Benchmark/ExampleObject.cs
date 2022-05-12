@@ -1,4 +1,4 @@
-namespace ZeroAllocation.Benchmark.ObjectPools;
+namespace ObjectPools.Benchmark;
 
 public class ExampleObject
 {

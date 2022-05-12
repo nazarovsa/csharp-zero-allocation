@@ -1,6 +1,6 @@
 using BenchmarkDotNet.Attributes;
 
-namespace ZeroAllocation.Benchmark.QueryBuilders;
+namespace QueryBuilders.Benchmark.QueryBuilders;
 
 [MemoryDiagnoser(false)]
 public class QueryBuilderBenchmark

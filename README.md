@@ -362,11 +362,19 @@ It compares passing a mutable struct by value and by reference with passing an i
 
 #### Use ref struct types
 
-Use a ref struct or a `readonly ref struct`, such as `Span<T>` or `ReadOnlySpan<T>`, to work with blocks of memory as a sequence of bytes. The memory used by the span is constrained to a single stack frame. This restriction enables the compiler to make several optimizations. The primary motivation for this feature was Span<T> and related structures. You'll achieve performance improvements from these enhancements by using new and updated .NET APIs that make use of the Span<T> type.
+Use a ref struct or a `readonly ref struct`, such as `Span<T>` or `ReadOnlySpan<T>`, 
+to work with blocks of memory as a sequence of bytes. 
+The memory used by the span is constrained to a single stack frame. 
+This restriction enables the compiler to make several optimizations. 
+The primary motivation for this feature was `Span<T>` and related structures. 
+You'll achieve performance improvements from these enhancements by using new and updated .NET APIs that make use of the Span<T> type.
 
-Declaring a struct as `readonly ref` combines the benefits and restrictions of `ref struct` and `readonly struct` declarations. The memory used by the readonly span is restricted to a single stack frame, and the memory used by the readonly span can't be modified.
+Declaring a struct as `readonly ref` combines the benefits and restrictions of `ref struct` and `readonly struct` declarations. 
+The memory used by the readonly span is restricted to a single stack frame, 
+and the memory used by the readonly span can't be modified.
 
-You may have similar requirements working with memory created using `stackalloc` or when using memory from interop APIs. You can define your own `ref struct` types for those needs.
+You may have similar requirements working with memory created using `stackalloc` or when using memory from interop APIs. 
+You can define your own `ref struct` types for those needs.
 
 #### Use nint and nuint types
 

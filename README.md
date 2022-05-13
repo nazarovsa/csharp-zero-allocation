@@ -485,7 +485,9 @@ You can assign the result of a stackalloc expression to a variable of one of the
 - Limit the amount of memory you allocate with stackalloc. For example, if the intended buffer size is below a certain limit, you allocate the memory on the stack; otherwise, use an array of the required length, as the following code shows:
 ```csharp
 const int MaxStackLimit = 1024;
-Span<byte> buffer = inputLength <= MaxStackLimit ? stackalloc byte[MaxStackLimit] : new byte[inputLength]; 
+Span<byte> buffer = inputLength <= MaxStackLimit 
+    ? stackalloc byte[MaxStackLimit] 
+    : new byte[inputLength]; 
 ```
 - Avoid using `stackalloc` inside loops. Allocate the memory block outside a loop and reuse it inside the loop.
 

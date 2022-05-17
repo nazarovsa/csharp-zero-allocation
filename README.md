@@ -292,7 +292,9 @@ private static double CalculateDistance2(in Point3D point1, in Point3D point2 = 
     double yDifference = point1.Y - point2.Y;
     double zDifference = point1.Z - point2.Z;
 
-    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+    return Math.Sqrt(xDifference * xDifference + 
+        yDifference * yDifference + 
+        zDifference * zDifference);
 }
 ```
 
@@ -320,7 +322,9 @@ private static double CalculateDistance(in Point3D point1, in Point3D point2)
     double yDifference = point1.Y - point2.Y;
     double zDifference = point1.Z - point2.Z;
 
-    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+    return Math.Sqrt(xDifference * xDifference + 
+        yDifference * yDifference + 
+        zDifference * zDifference);
 }
 ```
 
@@ -348,7 +352,9 @@ private static double CalculateDistance3(in ReadonlyPoint3D point1, in ReadonlyP
     double yDifference = point1.Y - point2.Y;
     double zDifference = point1.Z - point2.Z;
 
-    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+    return Math.Sqrt(xDifference * xDifference + 
+        yDifference * yDifference + 
+        zDifference * zDifference);
 }
 ```
 

@@ -346,7 +346,9 @@ the compiler can safely determine that the struct state isn't modified, and a de
 
 If the distance calculation uses the immutable struct, `ReadonlyPoint3D`, temporary objects aren't needed:
 ```csharp
-private static double CalculateDistance3(in ReadonlyPoint3D point1, in ReadonlyPoint3D point2 = default)
+private static double CalculateDistance3(
+    in ReadonlyPoint3D point1, 
+    in ReadonlyPoint3D point2 = default)
 {
     double xDifference = point1.X - point2.X;
     double yDifference = point1.Y - point2.Y;

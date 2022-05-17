@@ -246,7 +246,10 @@ private static double CalculateDistance(in Point3D point1, in Point3D point2)
     double yDifference = point1.Y - point2.Y;
     double zDifference = point1.Z - point2.Z;
 
-    return Math.Sqrt(xDifference * xDifference + yDifference * yDifference + zDifference * zDifference);
+    return Math.Sqrt(
+        xDifference * xDifference + 
+        yDifference * yDifference + 
+        zDifference * zDifference);
 }
 ```
 
@@ -539,6 +542,7 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 - [Abstract lottery ticket combination generator](https://github.com/nazarovsa/csharp-zero-allocation/tree/main/src/Generation) - Optimization sample of lottery ticket combination generator.
 
 ## Sources
+### In English
 
 - [`Span<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.span-1?view=net-6.0)
 - [`ReadOnlySpan<T>`: docs](https://docs.microsoft.com/en-us/dotnet/api/system.readonlyspan-1?view=net-6.0)
@@ -549,7 +553,10 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 - [.NET Platform Architecture. Stanislav Sidristij - Memory<T> and Span<T>](https://github.com/sidristij/dotnetbook/blob/master/book/en/MemorySpan.md)
 - [What is Span in C# and why you should be using it](https://www.youtube.com/watch?v=FM5dpxJMULY)
 - [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - GuidTransformer sample taken from this video.
-- [RU - Станислав Сидристый — Делаем zero-allocation код на примере оптимизации крупной библиотеки](https://www.youtube.com/watch?v=-FDfnUyYSyc)
 - [Memory pools: github repo](https://github.com/sidristij/memory-pools) - Sidristiy memory pools: including pools and traffic-free enumerable implementation.
 - [ValueStringBuilder: a stack-based string-builder](https://andrewlock.net/a-deep-dive-on-stringbuilder-part-6-vaulestringbuilder-a-stack-based-string-builder/)
 - [ValueStringBuilder: source code](https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs)
+
+### In Russian
+- [Struct и readonly: как избежать падения производительности](https://habr.com/ru/company/microsoft/blog/423053/)
+- [RU - Станислав Сидристый — Делаем zero-allocation код на примере оптимизации крупной библиотеки](https://www.youtube.com/watch?v=-FDfnUyYSyc)

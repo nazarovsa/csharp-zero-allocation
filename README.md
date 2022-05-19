@@ -19,7 +19,7 @@ It may seem strange, but in some cases, we can avoid allocating memory at all if
 
 Let's start with some interesting facts about the `struct` type and then look closer to other instruments for optimization.
 
-### Structures and their vagaries (~ 17 minutes to read)
+### Structures and their vagaries (~17 minutes to read)
 _Much of the sample code in this section uses features added in **C# 7.2**. 
 To use those features, make sure your project isn't configured to use an earlier version._ 
 
@@ -561,7 +561,7 @@ Obviously, if we are reusing objects, it allow us to save memory and prevent GC 
 - [.NET Platform Architecture. Stanislav Sidristij - Memory<T> and Span<T>](https://github.com/sidristij/dotnetbook/blob/master/book/en/MemorySpan.md)
 - [What is Span in C# and why you should be using it](https://www.youtube.com/watch?v=FM5dpxJMULY)
 - [Writing C# without allocating ANY memory](https://www.youtube.com/watch?v=B2yOjLyEZk0) - GuidTransformer sample taken from this video.
-- [Memory pools: github repo](https://github.com/sidristij/memory-pools) - Sidristiy memory pools: including pools and traffic-free enumerable implementation.
+- [Memory pools: github repo](https://github.com/sidristij/memory-pools) - Sidristij memory pools: including pools and traffic-free enumerable implementation.
 - [ValueStringBuilder: a stack-based string-builder](https://andrewlock.net/a-deep-dive-on-stringbuilder-part-6-vaulestringbuilder-a-stack-based-string-builder/)
 - [ValueStringBuilder: source code](https://github.com/dotnet/runtime/blob/main/src/libraries/Common/src/System/Text/ValueStringBuilder.cs)
 

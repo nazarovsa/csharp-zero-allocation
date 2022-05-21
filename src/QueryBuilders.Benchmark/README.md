@@ -2,7 +2,8 @@
 
 |               Method |      Mean |    Error |   StdDev | Allocated |
 |--------------------- |----------:|---------:|---------:|----------:|
-| GetSelectQueryConcat |  76.68 ns | 0.764 ns | 0.714 ns |     592 B |
-|     GetSelectQuerySb | 172.77 ns | 0.752 ns | 0.667 ns |     744 B |
-|    GetSelectQueryVsb | 139.13 ns | 0.466 ns | 0.436 ns |     304 B |
+| GetSelectQueryConcat |  76.33 ns | 0.577 ns | 0.512 ns |     592 B |
+|     GetSelectQuerySb | 104.56 ns | 2.198 ns | 3.356 ns |     552 B |
+|    GetSelectQueryVsb | 158.39 ns | 1.659 ns | 1.471 ns |     224 B |
 
+A result string allocates 224 bytes of memory.

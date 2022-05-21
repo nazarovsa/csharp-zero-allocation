@@ -7,13 +7,13 @@ public static class QueryBuilder
 {
     public static string GetSelectQueryConcat(string fieldName)
     {
-        var result = $"SELECT ${fieldName} FROM DUMMY ";
+        var result = $"SELECT {fieldName} FROM DUMMY ";
 
         // Simulate params
         if (true)
         {
             result += "WHERE ID = @ID ";
-            result += "AND CreationDate > @CreationDate";
+            result += "AND CreationDate > @CreationDate ";
         }
         result += "ORDER BY CreationDate DESC";
 
@@ -22,13 +22,16 @@ public static class QueryBuilder
     
     public static string GetSelectQuerySb(string fieldName)
     {
-        var sb = new StringBuilder($"SELECT ${fieldName} FROM DUMMY ");
+        var sb = new StringBuilder("SELECT ", 128);
 
+        sb.Append(fieldName);
+        sb.Append(" FROM DUMMY ");
+        
         // Simulate params
         if (true)
         {
             sb.Append("WHERE ID = @ID ");
-            sb.Append("AND CreationDate > @CreationDate");
+            sb.Append("AND CreationDate > @CreationDate ");
         }
 
         sb.Append("ORDER BY CreationDate DESC");
@@ -38,15 +41,22 @@ public static class QueryBuilder
 
     public static string GetSelectQueryVsb(string fieldName)
     {
-        var vsb = new ValueStringBuilder();
+        // If result string less than buffer, then use it. Else using ArrayPool<T>.Rent
+        // Span<char> buffer = stackalloc char[1024];
+        // var vsb = new ValueStringBuilder(buffer);
 
-        vsb.Append($"SELECT ${fieldName} FROM DUMMY ");
+        // Using ArrayPool<T>.Rent.
+        var vsb = new ValueStringBuilder();
+        
+        vsb.Append("SELECT ");
+        vsb.Append(fieldName);
+        vsb.Append(" FROM DUMMY ");
         
         // Simulate params
         if (true)
         {
             vsb.Append("WHERE ID = @ID ");
-            vsb.Append("AND CreationDate > @CreationDate");
+            vsb.Append("AND CreationDate > @CreationDate ");
         }
         
         vsb.Append("ORDER BY CreationDate DESC");

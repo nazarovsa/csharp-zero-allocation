@@ -1,8 +1,10 @@
 # Generation.Benchmark
 
-|                              Method |           Mean |         Error |        StdDev |         Median |     Gen 0 |   Allocated |
-|------------------------------------ |---------------:|--------------:|--------------:|---------------:|----------:|------------:|
-|                 GenerateCombination |       766.7 ns |       3.06 ns |       2.87 ns |       766.7 ns |    0.2251 |       472 B |
-|        GenerateCombinationEfficient |       151.3 ns |       0.17 ns |       0.15 ns |       151.4 ns |         - |           - |
-|          GenerateCombinations_10000 | 5,475,323.5 ns | 109,112.95 ns | 281,655.38 ns | 5,317,212.1 ns | 2250.0000 | 4,720,009 B |
-| GenerateCombinationsEfficient_10000 | 1,438,827.7 ns |   5,780.14 ns |   5,123.94 ns | 1,437,592.4 ns |         - |         1 B |
+|                        Method |  Count |            Mean |         Error |        StdDev |      Gen 0 |    Allocated |
+|------------------------------ |------- |----------------:|--------------:|--------------:|-----------:|-------------:|
+|          GenerateCombinations |      1 |        558.5 ns |       1.96 ns |       1.83 ns |     0.2251 |        472 B |
+| GenerateCombinationsEfficient |      1 |        141.1 ns |       0.25 ns |       0.24 ns |          - |            - |
+|          GenerateCombinations |  10000 |  5,357,173.9 ns |  45,280.68 ns |  40,140.15 ns |  2250.0000 |  4,720,009 B |
+| GenerateCombinationsEfficient |  10000 |  1,412,395.9 ns |   2,739.52 ns |   2,287.63 ns |          - |          2 B |
+|          GenerateCombinations | 100000 | 62,100,165.6 ns | 204,302.19 ns | 191,104.39 ns | 22500.0000 | 47,201,427 B |
+| GenerateCombinationsEfficient | 100000 | 16,507,169.5 ns |  27,985.89 ns |  26,178.02 ns |          - |         36 B |

@@ -8,32 +8,23 @@ public class GenerationBenchmark
 {
     private static readonly CombinationGenerator Generator = new(10);
     private static readonly CombinationGeneratorEfficient GeneratorEfficient = new(10);
+
+    [Params(1, 10_000, 100_000)]
+    public int Count;
     
     [Benchmark]
-    public void GenerateCombination()
+    public void GenerateCombinations()
     {
-        Generator.Generate();
-    }
-
-    [Benchmark]
-    public void GenerateCombinationEfficient()
-    {
-        GeneratorEfficient.MoveNext();
-    }
-
-    [Benchmark]
-    public void GenerateCombinations_10000()
-    {
-        for (var i = 0; i < 10000; i++)
+        for (var i = 0; i < Count; i++)
         {
             Generator.Generate();
         }
     }
 
     [Benchmark]
-    public void GenerateCombinationsEfficient_10000()
+    public void GenerateCombinationsEfficient()
     {
-        for (var i = 0; i < 10000; i++)
+        for (var i = 0; i < Count; i++)
         {
             GeneratorEfficient.MoveNext();
         }

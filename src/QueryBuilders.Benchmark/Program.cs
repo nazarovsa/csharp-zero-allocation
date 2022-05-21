@@ -2,3 +2,4 @@
 using QueryBuilders.Benchmark.QueryBuilders;
 
 BenchmarkRunner.Run<QueryBuilderBenchmark>();
+

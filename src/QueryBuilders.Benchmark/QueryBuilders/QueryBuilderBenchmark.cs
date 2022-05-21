@@ -7,6 +7,8 @@ public class QueryBuilderBenchmark
 {
     private const string _fieldName = "username";
 
+    [Params(16, 64, 101, 256)] public int StringBuilderBufferSize;
+
     [Benchmark]
     public string GetSelectQueryConcat()
     {
@@ -16,7 +18,7 @@ public class QueryBuilderBenchmark
     [Benchmark]
     public string GetSelectQuerySb()
     {
-        return QueryBuilder.GetSelectQuerySb(_fieldName);
+        return QueryBuilder.GetSelectQuerySb(_fieldName, StringBuilderBufferSize);
     }
 
     [Benchmark]

@@ -20,9 +20,9 @@ public static class QueryBuilder
         return result;
     }
     
-    public static string GetSelectQuerySb(string fieldName)
+    public static string GetSelectQuerySb(string fieldName, int bufferSize)
     {
-        var sb = new StringBuilder("SELECT ", 128);
+        var sb = new StringBuilder("SELECT ", bufferSize);
 
         sb.Append(fieldName);
         sb.Append(" FROM DUMMY ");

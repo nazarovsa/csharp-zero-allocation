@@ -9,7 +9,7 @@ public class CombinationGenerator
     public CombinationGenerator(int combinationLength)
     {
         if (combinationLength < 10)
-            throw new ArgumentException("Combination length must be greater than 2");
+            throw new ArgumentException("Combination length must be greater than 10.");
 
         _combinationLength = combinationLength;
     }

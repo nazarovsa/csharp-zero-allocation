@@ -502,7 +502,7 @@ Span<byte> buffer = inputLength <= MaxStackLimit
 ```
 - Avoid using `stackalloc` inside loops. Allocate the memory block outside a loop and reuse it inside the loop.
 
-**The content of the newly allocated memory is undefined.** You should initialize it before the use. For example, you can use the `Span<T>`. Clear method that sets all the items to the default value of type T.
+**The content of the newly allocated memory is undefined.** You should initialize it before the use. For example, you can use the `Span<T>.Clear` method that sets all the items to the default value of type T.
 
 ### `Memory<T>`, `ReadOnlyMemory<T>`, `IMemoryOwner<T>`
 

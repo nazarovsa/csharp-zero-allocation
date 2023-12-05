@@ -5,6 +5,8 @@ At the end of README.md you can find links to original sources.
 
 **All rights for original materials belong to the authors.**
 
+*If you find the repository usefull, give it a star!*
+
 ## Memory problems in our algorithms
 
 Reasons why we have problems with memory:
@@ -531,11 +533,49 @@ Transfer ownership to another consumer. In this case, the previous owner should 
 Destroy the buffer when it is no longer in use.
 Because the `IMemoryOwner<T>` object implements the `IDisposable` interface, you should call its `Dispose` method only after the memory buffer is no longer needed and you have destroyed it. You should not dispose of the `IMemoryOwner<T>` object while a reference to its memory is available. This means that the type in which `IMemoryOwner<T>` is declared should not have a `Finalize` method.
 
-### Object & Array pooling
+### Object pooling
 
 The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use – a "pool" – rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it; this can be done manually or automatically.
 
 Object pools are primarily used for performance: in some circumstances, object pools significantly improve performance. Object pools complicate object lifetime, as objects obtained from and returned to a pool are not actually created or destroyed at this time, and thus require care in implementation.
+
+### Array pooling
+
+Array pooling is similar to object pooling, but you use the pool of arrays instead. C# allows us to use that mechanism via ArrayPool class.
+
+Use arrays from the pool when you need an array of the same length and can’t allocate it on
+the stack. For example, instead of creating a new array at each method call, use the array
+pool.
+
+Use `ArrayPool<T>.Shared.Rent(int minimumLength)` to rent array from the pool.  
+Use `ArrayPool<T>.Shared.Return(T[] array, bool clearArray = false)` to return array into the pool.
+
+Instead of 
+
+```csharp
+public void DoSomeWork()
+{
+    var array = new double[2048];
+    // Do some work
+}
+```
+
+Use 
+
+```csharp
+public void DoSomeWork()
+{
+    var array = ArrayPool<double>.Shared.Rent(2048);
+    try
+    {
+        // Do some work
+    }
+    finally
+    {
+        ArrayPool<double>.Shared.Return(array);
+    }
+}
+```
 
 #### How pools helps us save memory.
 

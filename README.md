@@ -533,13 +533,15 @@ Transfer ownership to another consumer. In this case, the previous owner should 
 Destroy the buffer when it is no longer in use.
 Because the `IMemoryOwner<T>` object implements the `IDisposable` interface, you should call its `Dispose` method only after the memory buffer is no longer needed and you have destroyed it. You should not dispose of the `IMemoryOwner<T>` object while a reference to its memory is available. This means that the type in which `IMemoryOwner<T>` is declared should not have a `Finalize` method.
 
-### Object pooling
+### Pooling
+
+#### Object pooling
 
 The object pool pattern is a software creational design pattern that uses a set of initialized objects kept ready to use – a "pool" – rather than allocating and destroying them on demand. A client of the pool will request an object from the pool and perform operations on the returned object. When the client has finished, it returns the object to the pool rather than destroying it; this can be done manually or automatically.
 
 Object pools are primarily used for performance: in some circumstances, object pools significantly improve performance. Object pools complicate object lifetime, as objects obtained from and returned to a pool are not actually created or destroyed at this time, and thus require care in implementation.
 
-### Array pooling
+#### Array pooling
 
 Array pooling is similar to object pooling, but you use the pool of arrays instead. C# allows us to use that mechanism via ArrayPool class.
 
@@ -579,7 +581,7 @@ public void DoSomeWork()
 
 #### How pools helps us save memory.
 
-Obviously, if we are reusing objects, it allow us to save memory and prevent GC collections. We don't need to create and destroy extra objects anymore, because we taking them from the pool.
+Obviously, if we are reusing objects or arrays, it allow us to save memory and prevent GC collections. We don't need to create and destroy extra objects anymore, because we taking them from the pool.
 
 ## Practice
 

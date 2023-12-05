@@ -579,7 +579,7 @@ public void DoSomeWork()
 }
 ```
 
-#### How pools helps us save memory.
+#### How pools helps us save memory
 
 Obviously, if we are reusing objects or arrays, it allow us to save memory and prevent GC collections. We don't need to create and destroy extra objects anymore, because we taking them from the pool.
 

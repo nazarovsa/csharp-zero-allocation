@@ -5,7 +5,7 @@ At the end of README.md you can find links to original sources.
 
 **All rights for original materials belong to the authors.**
 
-*If you find the repository usefull, give it a star!*
+⭐️ *If you find the repository usefull, give it a star!*
 
 ## Memory problems in our algorithms
 
